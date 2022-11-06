@@ -1,0 +1,60 @@
+<form #myForm="ngForm" (ngSubmit)="save()" [formGroup]="workFormGroup">
+  <div fxLayout="row" fxLayoutAlign="start center" mat-dialog-title>
+
+    <mat-icon [icIcon]="work?.id?icEdit:icAdd" class="mr-5"></mat-icon>
+
+    <span class="subheading-2 m-0"
+          fxFlex>{{work?.id ? 'Modification Metier' : 'Nouveau Metier'}}</span>
+
+    <!--<button class="text-secondary" mat-dialog-close mat-icon-button type="button">
+        <mat-icon [icIcon]="icClose"></mat-icon>
+    </button>-->
+
+    <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutGap="16px" fxLayoutGap.lt-sm="0">
+      <div (click)="$event.stopPropagation()" fxLayoutAlign="start center" fxLayoutGap="4px">
+        <button (click)="changeState()"
+                [ngClass]="workFormGroup?.get('activate')?.value?['text-green', 'bg-green-light']:['text-red', 'bg-red-light']"
+                mat-button type="button">
+          {{workFormGroup?.get('activate')?.value ? 'Actif' : 'Inactif'}}
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <mat-divider class="-mx-6 text-border"></mat-divider>
+
+  <mat-dialog-content fxLayout="column">
+
+    <!--<mat-form-field appearance="outline" fxFlex>
+        <mat-label>Code</mat-label>
+        <input cdkFocusInitial formControlName="code" matInput>
+        <mat-icon [icIcon]="icTune" class="mr-3" matPrefix></mat-icon>
+    </mat-form-field>-->
+
+    <mat-form-field appearance="outline" fxFlex>
+      <mat-label>Nom</mat-label>
+      <input formControlName="name" matInput>
+      <mat-icon [icIcon]="icWork" class="mr-3" matPrefix></mat-icon>
+    </mat-form-field>
+
+    <div class="uploadDialogDiv">
+      <input type="file" name="uploadfile" formControlName="icon" (change)="loadFiles($event)" class="inputfile"
+             id="upfile"/>
+      <label for="upfile"> Selectionner l'icône </label> <br/>
+      <b>{{fileNames}}</b>
+    </div>
+
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+    <button [disabled]="workFormGroup.invalid" [ngClass]="['text-green', 'bg-green-light']" mat-button
+            type="submit">
+      <mat-icon [icIcon]="icCheck" class="mr-5"></mat-icon>
+      {{work?.id ? 'MODIFIER' : 'CREER'}}
+    </button>
+    <button [ngClass]="['text-red', 'bg-red-light']" mat-button mat-dialog-close type="button">
+      <mat-icon [icIcon]="icClose" class="mr-5"></mat-icon>
+      ANNULER
+    </button>
+  </mat-dialog-actions>
+</form>

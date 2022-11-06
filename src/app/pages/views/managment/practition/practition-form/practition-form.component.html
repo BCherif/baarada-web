@@ -1,0 +1,72 @@
+<form #myForm="ngForm" (ngSubmit)="save()" [formGroup]="practitionFormGroup">
+  <div fxLayout="row" fxLayoutAlign="start center" mat-dialog-title>
+
+    <mat-icon [icIcon]="practition?.id?icEdit:icAdd" class="mr-5"></mat-icon>
+
+    <span class="subheading-2 m-0"
+          fxFlex>{{practition?.id ? 'Modification Pratitien' : 'Nouveau Pratitien'}}</span>
+
+    <!--<button class="text-secondary" mat-dialog-close mat-icon-button type="button">
+        <mat-icon [icIcon]="icClose"></mat-icon>
+    </button>-->
+
+    <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutGap="16px" fxLayoutGap.lt-sm="0">
+      <div (click)="$event.stopPropagation()" fxLayoutAlign="start center" fxLayoutGap="4px">
+        <button (click)="changeState()"
+                [ngClass]="practitionFormGroup?.get('activate')?.value?['text-green', 'bg-green-light']:['text-red', 'bg-red-light']"
+                mat-button type="button">
+          {{practitionFormGroup?.get('activate')?.value ? 'Actif' : 'Inactif'}}
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <mat-divider class="-mx-6 text-border"></mat-divider>
+
+  <mat-dialog-content fxLayout="column">
+
+    <mat-form-field appearance="outline" fxFlex>
+      <mat-label>Nom & Prénom</mat-label>
+      <input formControlName="fullName" matInput>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" fxFlex>
+      <mat-label>Metier</mat-label>
+      <mat-select formControlName="work" (selectionChange)="getWorkById($event.value)">
+        <ng-container *ngFor="let w of works">
+          <mat-option [value]="w.id">
+            {{w?.name}}
+          </mat-option>
+        </ng-container>
+      </mat-select>
+    </mat-form-field>
+
+    <div class="uploadDialogDiv">
+      <input type="file" name="uploadfile" formControlName="avatar" (change)="loadFiles($event)" class="inputfile"
+             id="upfile"/>
+      <label for="upfile"> Selectionner l'image </label> <br/>
+      <b>{{fileNames}}</b>
+    </div>
+    <br>
+    <mat-form-field appearance="outline" fxFlex>
+      <mat-label>Présentation</mat-label>
+      <textarea matInput
+                formControlName="presentation"
+                rows="5">
+            </textarea>
+    </mat-form-field>
+
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+    <button [disabled]="practitionFormGroup.invalid" [ngClass]="['text-green', 'bg-green-light']" mat-button
+            type="submit">
+      <mat-icon [icIcon]="icCheck" class="mr-5"></mat-icon>
+      {{practition?.id ? 'MODIFIER' : 'CREER'}}
+    </button>
+    <button [ngClass]="['text-red', 'bg-red-light']" mat-button mat-dialog-close type="button">
+      <mat-icon [icIcon]="icClose" class="mr-5"></mat-icon>
+      ANNULER
+    </button>
+  </mat-dialog-actions>
+</form>

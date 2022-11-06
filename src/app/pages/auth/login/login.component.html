@@ -1,0 +1,55 @@
+<div class="w-full h-full bg-pattern" fxLayout="column" fxLayoutAlign="center center">
+  <div @fadeInUp class="card overflow-hidden w-full max-w-xs">
+    <div class="p-6 pb-0" fxLayout="column" fxLayoutAlign="center center">
+      <div class="fill-current text-center">
+        <img class="w-16" src="assets/img/demo/logo.svg">
+      </div>
+    </div>
+
+    <div class="text-center mt-4">
+      <h2 class="title m-0">Baarada</h2>
+      <h4 class="body-2 text-secondary m-0">Authentification</h4>
+    </div>
+
+    <form [formGroup]="loginForm">
+      <div class="p-6" fxLayout="column" fxLayoutGap="16px">
+
+        <div fxFlex="auto" fxLayout="column">
+          <mat-form-field fxFlex="grow">
+            <mat-label>Nom d'utilisateur</mat-label>
+            <input formControlName="username" matInput required>
+            <mat-error *ngIf="loginForm.get('username').hasError('required')">
+              Username est obligatoire
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field fxFlex="grow">
+            <mat-label>Mot de passe</mat-label>
+            <input [type]="inputType" formControlName="password" matInput required>
+            <button (click)="toggleVisibility()" mat-icon-button matSuffix matTooltip="Afficher"
+                    type="button">
+              <mat-icon *ngIf="visible" [icIcon]="icVisibility"></mat-icon>
+              <mat-icon *ngIf="!visible" [icIcon]="icVisibilityOff"></mat-icon>
+            </button>
+            <!--<mat-hint>Click the eye to toggle visibility</mat-hint>-->
+            <mat-error *ngIf="loginForm.get('password').hasError('required')">
+              Le mot de passe est obligatoire
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <!--<div fxLayout="row" fxLayoutAlign="space-between center">
+            <mat-checkbox class="caption" color="primary">Remember Me</mat-checkbox>
+            <a [routerLink]="['/forgot-password']" class="caption">Forgot Password?</a>
+        </div>-->
+
+        <button [disabled]="!loginForm.valid" color="primary" mat-raised-button (click)="onLogin()">
+          SE CONNECTER
+        </button>
+
+        <p class="text-secondary text-center"><br/>
+          {{copyright}} <a href="/" style="color: #4A9DD3;"> - BAARADA</a>
+        </p>
+      </div>
+    </form>
+  </div>
+</div>

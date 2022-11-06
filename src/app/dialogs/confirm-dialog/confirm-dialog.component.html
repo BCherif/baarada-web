@@ -1,0 +1,24 @@
+<div fxLayout="row" fxLayoutAlign="start center" mat-dialog-title>
+    <span class="h1">
+        <mat-icon [icIcon]="icWarning" class="mr-5"></mat-icon>
+        {{confirmTitle ? confirmTitle : 'Confirmation'}}
+    </span>
+</div>
+
+<mat-divider class="-mx-6 text-border"></mat-divider>
+
+<mat-dialog-content fxLayout="column">
+    <div class="h3">{{confirmMessage}}</div>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+    <button (click)="confirm()" color="primary" mat-button type="button">
+        <mat-icon [icIcon]="icCheck" class="mr-5"></mat-icon>
+        CONFIRMER
+    </button>
+    <button mat-button mat-dialog-close type="button">
+        <mat-icon [icIcon]="icClose" class="mr-5"></mat-icon>
+        ANNULER
+    </button>
+</mat-dialog-actions>
+

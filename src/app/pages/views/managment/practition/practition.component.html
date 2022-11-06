@@ -1,0 +1,124 @@
+<vex-page-layout>
+
+  <vex-page-layout-content [class.container]="'boxed'">
+
+    <div class="card overflow-auto">
+      <div class="bg-app-bar px-6 h-16 border-b sticky left-0" fxLayout="row" fxLayoutAlign="start center">
+        <button class="mr-4" (click)="showFormDialog()" color="primary" fxFlex="none" mat-mini-fab
+                matTooltip="Nouveau Pratitien"
+                type="button">
+          <mat-icon [icIcon]="icAdd"></mat-icon>
+        </button>
+
+        <div class="bg-card rounded-full border px-4" fxFlex="400px" fxFlex.lt-md="auto" fxHide.xs
+             fxLayout="row" fxLayoutAlign="start center">
+          <ic-icon [icIcon]="icSearch" size="20px"></ic-icon>
+          <input [formControl]="searchFromCtrl"
+                 class="px-4 py-3 border-0 outline-none w-full bg-transparent"
+                 placeholder="Recherche ..." type="search">
+
+          <button class="ml-4" color="primary" fxFlex="none" mat-icon
+                  matTooltip="Rafraichir" type="button">
+            <mat-icon [icIcon]="icRefresh"></mat-icon>
+          </button>
+        </div>
+
+
+        <span fxFlex></span>
+
+        <button [matMenuTriggerFor]="columnFilterMenu" class="ml-4" fxFlex="none" mat-icon-button
+                matTooltip="Filtrer les colonnes" type="button">
+          <mat-icon [icIcon]="icFilterList"></mat-icon>
+        </button>
+
+      </div>
+
+      <table @stagger [dataSource]="practitions" class="w-full" mat-table matSort>
+
+        <ng-container *ngFor="let column of columns; trackBy: trackByProperty">
+
+          <ng-container *ngIf="column?.type === 'image'" [matColumnDef]="column?.property">
+            <th *matHeaderCellDef mat-header-cell mat-sort-header> {{ column?.label }}</th>
+            <td *matCellDef="let row" [ngClass]="column?.cssClasses" mat-cell>
+              <div @stagger class="px-gutter py-4" gdGap="24px">
+                <img [src]="dowloadImage(row[column?.property])"
+                     class="h-24 w-24 mx-auto rounded" alt="">
+              </div>
+            </td>
+          </ng-container>
+
+          <ng-container *ngIf="column.type === 'text'" [matColumnDef]="column.property">
+            <th *matHeaderCellDef class="uppercase" mat-header-cell mat-sort-header> {{ column.label }}</th>
+            <td *matCellDef="let row" [ngClass]="column.cssClasses" mat-cell>{{ row[column.property] }}</td>
+          </ng-container>
+        </ng-container>
+
+        <ng-container matColumnDef="activate">
+          <th *matHeaderCellDef class="uppercase" mat-header-cell mat-sort-header>Etat</th>
+          <td *matCellDef="let row" mat-cell>
+            <div (click)="$event.stopPropagation()" fxLayoutAlign="start center" fxLayoutGap="4px">
+              <div
+                [ngClass]="row.activate?['text-green', 'bg-green-light']:['text-red', 'bg-red-light']"
+                class="rounded px-2 py-1 font-medium text-xs"
+                fxFlex="none">
+                {{ row.activate ? 'Activer' : 'Desactiver'}}
+              </div>
+            </div>
+          </td>
+        </ng-container>
+
+
+        <!-- Action Column -->
+        <ng-container matColumnDef="actions">
+          <th *matHeaderCellDef mat-header-cell mat-sort-header></th>
+          <td *matCellDef="let row; let rowIndex = index;" class="w-10 text-secondary" mat-cell>
+            <button (click)="$event.stopPropagation()"
+                    [matMenuTriggerData]="{ category: row,  rowIndex:rowIndex}"
+                    [matMenuTriggerFor]="actionsMenu"
+                    mat-icon-button
+                    type="button">
+              <mat-icon [icIcon]="icMoreHoriz"></mat-icon>
+            </button>
+          </td>
+        </ng-container>
+
+        <tr *matHeaderRowDef="visibleColumns" mat-header-row></tr>
+        <tr *matRowDef="let row; columns: visibleColumns; let rowIndex = index;"
+            @fadeInUp
+            class="hover:bg-hover trans-ease-out cursor-pointer"
+            mat-row></tr>
+      </table>
+
+      <mat-paginator [length]="totalElements"
+                     [pageIndex]="page"
+                     [pageSize]="size"
+                     [pageSizeOptions]="[5, 10, 25, 100]"
+                     [showFirstLastButtons]="true"
+                     class="sticky left-0"></mat-paginator>
+    </div>
+
+  </vex-page-layout-content>
+
+</vex-page-layout>
+
+<mat-menu #columnFilterMenu="matMenu" xPosition="before" yPosition="below">
+  <button (click)="toggleColumnVisibility(column, $event)" *ngFor="let column of columns"
+          class="checkbox-item mat-menu-item">
+    <mat-checkbox (click)="$event.stopPropagation()" [(ngModel)]="column.visible" color="primary">
+      {{ column.label }}
+    </mat-checkbox>
+  </button>
+</mat-menu>
+
+<mat-menu #actionsMenu="matMenu" xPosition="before" yPosition="below">
+  <ng-template let-practition="practition" let-rowIndex="rowIndex" matMenuContent>
+    <button mat-menu-item>
+      <mat-icon [icIcon]="icEdit"></mat-icon>
+      <span>Modifier</span>
+    </button>
+    <button mat-menu-item>
+      <mat-icon [icIcon]="practition?.activate?icClose:icCheck"></mat-icon>
+      <span>{{practition?.activate ? 'Desactiver' : 'Activer'}}</span>
+    </button>
+  </ng-template>
+</mat-menu>
