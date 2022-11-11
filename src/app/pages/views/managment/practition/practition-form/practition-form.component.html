@@ -15,7 +15,7 @@
         <button (click)="changeState()"
                 [ngClass]="practitionFormGroup?.get('activate')?.value?['text-green', 'bg-green-light']:['text-red', 'bg-red-light']"
                 mat-button type="button">
-          {{practitionFormGroup?.get('activate')?.value ? 'Actif' : 'Inactif'}}
+          {{practitionFormGroup?.get('activate')?.value ? 'Activer' : 'Desactiver'}}
         </button>
       </div>
     </div>
@@ -28,6 +28,15 @@
     <mat-form-field appearance="outline" fxFlex>
       <mat-label>Nom & Prénom</mat-label>
       <input formControlName="fullName" matInput>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" fxFlex>
+      <mat-label>Telephone</mat-label>
+      <ngx-mat-intl-tel-input #phoneNumber [enablePlaceholder]="true"
+                              [onlyCountries]="['ml']" formControlName="phoneNumber"></ngx-mat-intl-tel-input>
+      <mat-error *ngIf="myForm.form.controls['phoneNumber']?.errors?.validatePhoneNumber">
+        Numero de telephone invalide
+      </mat-error>
     </mat-form-field>
 
     <mat-form-field appearance="outline" fxFlex>
@@ -47,20 +56,21 @@
       <label for="upfile"> Selectionner la photo de profil </label> <br/>
     </div>
 
-   <div class="imgCropped">
-     <image-cropper
-       *ngIf="imageChangedEvent"
-       [maintainAspectRatio]="false"
-       [imageChangedEvent]="imageChangedEvent"
-       [format]="'jpeg'"
-       [imageQuality]="20"
-       (imageCropped)="imageCropped($event)"
-     ></image-cropper>
-   </div>
+    <div class="imgCropped">
+      <image-cropper
+        *ngIf="imageChangedEvent"
+        [maintainAspectRatio]="false"
+        [imageChangedEvent]="imageChangedEvent"
+        [format]="'jpeg'"
+        [imageQuality]="20"
+        (imageCropped)="imageCropped($event)"
+      ></image-cropper>
+    </div>
     <br>
 
     <div (click)="getCouverture()" class="uploadDialogDiv">
-      <input #couverture type="file" name="uploadfile" formControlName="background" (change)="loadFilesCouverture($event)" class="inputfile"/>
+      <input #couverture type="file" name="uploadfile" formControlName="background"
+             (change)="loadFilesCouverture($event)" class="inputfile"/>
       <label> Selectionner la photo de couverture </label> <br/>
     </div>
 

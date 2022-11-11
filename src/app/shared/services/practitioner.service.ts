@@ -37,7 +37,7 @@ export class PractitionerService {
   }
 
   getImage(url: string) {
-    return this.serviceURL + "/download/" + url;
+    return this.serviceURL + "/download/" + url + "/avatar";
   }
 
 }

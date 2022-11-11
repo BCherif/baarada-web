@@ -15,25 +15,27 @@ import {MatDividerModule} from '@angular/material/divider';
 import {MatExpansionModule} from "@angular/material/expansion";
 import {MatCheckboxModule} from "@angular/material/checkbox";
 import {ImageCropperModule} from "ngx-image-cropper";
+import {NgxMatIntlTelInputModule} from "ngx-mat-intl-tel-input";
 
 @NgModule({
-    imports: [
-        CommonModule,
-        ReactiveFormsModule,
-        FlexLayoutModule,
-        MatDialogModule,
-        MatInputModule,
-        MatButtonModule,
-        MatIconModule,
-        MatRadioModule,
-        MatSelectModule,
-        MatMenuModule,
-        IconModule,
-        MatDividerModule,
-        MatExpansionModule,
-        MatCheckboxModule,
-        ImageCropperModule
-    ],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    FlexLayoutModule,
+    MatDialogModule,
+    MatInputModule,
+    MatButtonModule,
+    MatIconModule,
+    MatRadioModule,
+    MatSelectModule,
+    MatMenuModule,
+    IconModule,
+    MatDividerModule,
+    MatExpansionModule,
+    MatCheckboxModule,
+    ImageCropperModule,
+    NgxMatIntlTelInputModule
+  ],
   declarations: [PractitionFormComponent],
   entryComponents: [PractitionFormComponent],
   exports: [PractitionFormComponent],
