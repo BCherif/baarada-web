@@ -41,8 +41,17 @@
       <input type="file" name="uploadfile" formControlName="icon" (change)="loadFiles($event)" class="inputfile"
              id="upfile"/>
       <label for="upfile"> Selectionner l'icône </label> <br/>
-      <b>{{fileNames}}</b>
+<!--      <b>{{fileNames}}</b>-->
     </div>
+
+    <image-cropper
+      *ngIf="imageChangedEvent"
+      [maintainAspectRatio]="false"
+      [imageChangedEvent]="imageChangedEvent"
+      [format]="'jpeg'"
+      [imageQuality]="20"
+      (imageCropped)="imageCropped($event)"
+    ></image-cropper>
 
   </mat-dialog-content>
 

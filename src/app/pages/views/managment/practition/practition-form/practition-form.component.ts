@@ -1,4 +1,4 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import {Component, ElementRef, Inject, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import icEdit from '@iconify/icons-ic/twotone-edit';
@@ -11,6 +11,8 @@ import {Practition} from "../../../../../shared/models/entities/practition.model
 import {PractitionerService} from "../../../../../shared/services/practitioner.service";
 import {Work} from "../../../../../shared/models/entities/work.model";
 import {WorkService} from "../../../../../shared/services/work.service";
+import {ImageCroppedEvent} from "ngx-image-cropper";
+import {ImportFileService} from "../../../../../shared/services/import-file.service";
 
 @Component({
   selector: 'baarada-practition-form',
@@ -32,13 +34,20 @@ export class PractitionFormComponent implements OnInit {
   fileNames = '';
   work: Work;
   works: Work[];
-
+  imageChangedEvent: any = '';
+  imageChangedEventCouverture: any = '';
+  croppedImage: any = '';
+  croppedImageCouverture: any = '';
+  imageFile: any;
+  imageFileCouverture: any;
+  @ViewChild('couverture') couverture: ElementRef;
   constructor(@Inject(MAT_DIALOG_DATA) public _data: any,
               private _dialogRef: MatDialogRef<PractitionFormComponent>,
               private _fb: FormBuilder,
               private _practitionerService: PractitionerService,
               private _workService: WorkService,
-              private _toast: ToastrService) {
+              private _toast: ToastrService,
+              private _importFile: ImportFileService) {
 
     if (this._data) {
       this.practition = this._data.practition;
@@ -46,11 +55,30 @@ export class PractitionFormComponent implements OnInit {
     }
 
   }
+  getCouverture() {
+    console.log('ok');
+    this.couverture.nativeElement.click();
+  }
 
   ngOnInit() {
     this.getWorks();
     this.createForm();
   }
+
+  imageCropped(event: ImageCroppedEvent) {
+    this.croppedImage = event.base64;
+    const blob = this._importFile.dataURLtoBlob(event.base64);
+    this.imageFile = this._importFile.blobToFile(blob, "photo");
+    this.file.append('avatar', this.imageFile, this.imageFile.name);
+  }
+
+  imageCroppedCouverture(event: ImageCroppedEvent) {
+    this.croppedImageCouverture = event.base64;
+    const blob = this._importFile.dataURLtoBlob(event.base64);
+    this.imageFileCouverture = this._importFile.blobToFile(blob, "photo");
+    this.file.append('background', this.imageFileCouverture, this.imageFileCouverture.name);
+  }
+
 
   createForm(): void {
     this.practitionFormGroup = this._fb.group({
@@ -59,6 +87,7 @@ export class PractitionFormComponent implements OnInit {
       avatar: [''],
       work: [''],
       presentation: [''],
+      background: [''],
     });
   }
 
@@ -67,6 +96,7 @@ export class PractitionFormComponent implements OnInit {
       id: [this.practition?.id],
       fullName: [this.practition?.fullName, [Validators.required]],
       avatar: [this.practition?.avatar],
+      background: [this.practition?.background],
       work: [this.practition?.work?.id],
       presentation: [this.practition?.presentation],
       activate: [this.practition?.activate]
@@ -74,15 +104,28 @@ export class PractitionFormComponent implements OnInit {
   }
 
   loadFiles(event) {
-    this.fileNames = '';
-    const fileList: FileList = event.target.files;
-    if (fileList.length > 0) {
-      for (let i = 0; i < fileList.length; i++) {
-        const fichier: File = fileList[i];
-        this.file.append('avatar', fichier, fichier.name);
-        this.fileNames += fichier.name;
-      }
-    }
+    this.imageChangedEvent = event;
+    // this.fileNames = '';
+    // const fileList: FileList = event.target.files;
+    // if (fileList.length > 0) {
+    //   for (let i = 0; i < fileList.length; i++) {
+    //     const fichier: File = fileList[i];
+    //     this.file.append('avatar', fichier, fichier.name);
+    //     this.fileNames += fichier.name;
+    //   }
+    // }
+  }
+  loadFilesCouverture(event) {
+    this.imageChangedEventCouverture = event;
+    // this.fileNames = '';
+    // const fileList: FileList = event.target.files;
+    // if (fileList.length > 0) {
+    //   for (let i = 0; i < fileList.length; i++) {
+    //     const fichier: File = fileList[i];
+    //     this.file.append('avatar', fichier, fichier.name);
+    //     this.fileNames += fichier.name;
+    //   }
+    // }
   }
 
   getWorks() {
