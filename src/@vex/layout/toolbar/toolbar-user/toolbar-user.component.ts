@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@
 import { PopoverService } from '../../../components/popover/popover.service';
 import { ToolbarUserDropdownComponent } from './toolbar-user-dropdown/toolbar-user-dropdown.component';
 import icPerson from '@iconify/icons-ic/twotone-person';
+import {BaaradaUtils} from "../../../../app/shared/utils/baarada-utils";
 
 @Component({
   selector: 'vex-toolbar-user',
@@ -12,6 +13,8 @@ export class ToolbarUserComponent implements OnInit {
 
   dropdownOpen: boolean;
   icPerson = icPerson;
+
+  currentUser = new BaaradaUtils().getAppUser();
 
   constructor(private popover: PopoverService,
               private cd: ChangeDetectorRef) { }
