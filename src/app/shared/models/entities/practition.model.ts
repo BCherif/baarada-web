@@ -5,5 +5,6 @@ export class Practition extends Entity {
   fullName?: string;
   avatar?: string;
   presentation?: string;
+  background?: string;
   work?: Work;
 }

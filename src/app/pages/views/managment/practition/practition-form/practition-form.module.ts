@@ -14,24 +14,26 @@ import {IconModule} from '@visurel/iconify-angular';
 import {MatDividerModule} from '@angular/material/divider';
 import {MatExpansionModule} from "@angular/material/expansion";
 import {MatCheckboxModule} from "@angular/material/checkbox";
+import {ImageCropperModule} from "ngx-image-cropper";
 
 @NgModule({
-  imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    FlexLayoutModule,
-    MatDialogModule,
-    MatInputModule,
-    MatButtonModule,
-    MatIconModule,
-    MatRadioModule,
-    MatSelectModule,
-    MatMenuModule,
-    IconModule,
-    MatDividerModule,
-    MatExpansionModule,
-    MatCheckboxModule
-  ],
+    imports: [
+        CommonModule,
+        ReactiveFormsModule,
+        FlexLayoutModule,
+        MatDialogModule,
+        MatInputModule,
+        MatButtonModule,
+        MatIconModule,
+        MatRadioModule,
+        MatSelectModule,
+        MatMenuModule,
+        IconModule,
+        MatDividerModule,
+        MatExpansionModule,
+        MatCheckboxModule,
+        ImageCropperModule
+    ],
   declarations: [PractitionFormComponent],
   entryComponents: [PractitionFormComponent],
   exports: [PractitionFormComponent],

@@ -44,8 +44,35 @@
     <div class="uploadDialogDiv">
       <input type="file" name="uploadfile" formControlName="avatar" (change)="loadFiles($event)" class="inputfile"
              id="upfile"/>
-      <label for="upfile"> Selectionner l'image </label> <br/>
-      <b>{{fileNames}}</b>
+      <label for="upfile"> Selectionner la photo de profil </label> <br/>
+    </div>
+
+   <div class="imgCropped">
+     <image-cropper
+       *ngIf="imageChangedEvent"
+       [maintainAspectRatio]="false"
+       [imageChangedEvent]="imageChangedEvent"
+       [format]="'jpeg'"
+       [imageQuality]="20"
+       (imageCropped)="imageCropped($event)"
+     ></image-cropper>
+   </div>
+    <br>
+
+    <div (click)="getCouverture()" class="uploadDialogDiv">
+      <input #couverture type="file" name="uploadfile" formControlName="background" (change)="loadFilesCouverture($event)" class="inputfile"/>
+      <label> Selectionner la photo de couverture </label> <br/>
+    </div>
+
+    <div class="imgCropped">
+      <image-cropper
+        *ngIf="imageChangedEventCouverture"
+        [maintainAspectRatio]="false"
+        [imageChangedEvent]="imageChangedEventCouverture"
+        [format]="'jpeg'"
+        [imageQuality]="20"
+        (imageCropped)="imageCroppedCouverture($event)"
+      ></image-cropper>
     </div>
     <br>
     <mat-form-field appearance="outline" fxFlex>
