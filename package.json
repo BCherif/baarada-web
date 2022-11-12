@@ -37,6 +37,7 @@
     "highlight.js": "~10.6.0",
     "luxon": "~1.26.0",
     "ngx-image-cropper": "^6.3.1",
+    "ngx-mat-intl-tel-input": "^4.1.0",
     "ngx-quicklink": "~0.2.7",
     "ngx-quill": "~16.0.1",
     "ngx-showdown": "~6.0.0",

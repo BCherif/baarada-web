@@ -1,6 +1,6 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { MenuItem } from '../interfaces/menu-item.interface';
-import { trackById } from '../../../../utils/track-by';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit} from '@angular/core';
+import {MenuItem} from '../interfaces/menu-item.interface';
+import {trackById} from '../../../../utils/track-by';
 import icPerson from '@iconify/icons-ic/twotone-person';
 import icSettings from '@iconify/icons-ic/twotone-settings';
 import icAccountCircle from '@iconify/icons-ic/twotone-account-circle';
@@ -17,8 +17,10 @@ import icBusiness from '@iconify/icons-ic/twotone-business';
 import icVerifiedUser from '@iconify/icons-ic/twotone-verified-user';
 import icLock from '@iconify/icons-ic/twotone-lock';
 import icNotificationsOff from '@iconify/icons-ic/twotone-notifications-off';
-import { Icon } from '@visurel/iconify-angular';
-import { PopoverRef } from '../../../../components/popover/popover-ref';
+import icPowerOff from '@iconify/icons-ic/baseline-power-off';
+import {Icon} from '@visurel/iconify-angular';
+import {PopoverRef} from '../../../../components/popover/popover-ref';
+import {BaaradaUtils} from "../../../../../app/shared/utils/baarada-utils";
 
 export interface OnlineStatus {
   id: 'online' | 'away' | 'dnd' | 'offline';
@@ -35,69 +37,71 @@ export interface OnlineStatus {
 })
 export class ToolbarUserDropdownComponent implements OnInit {
 
-  items: MenuItem[] = [
-    {
-      id: '1',
-      icon: icAccountCircle,
-      label: 'My Profile',
-      description: 'Personal Information',
-      colorClass: 'text-teal',
-      route: '/apps/social'
-    },
-    {
-      id: '2',
-      icon: icMoveToInbox,
-      label: 'My Inbox',
-      description: 'Messages & Latest News',
-      colorClass: 'text-primary',
-      route: '/apps/chat'
-    },
-    {
-      id: '3',
-      icon: icListAlt,
-      label: 'My Projects',
-      description: 'Tasks & Active Projects',
-      colorClass: 'text-amber',
-      route: '/apps/scrumboard'
-    },
-    {
-      id: '4',
-      icon: icTableChart,
-      label: 'Billing Information',
-      description: 'Pricing & Current Plan',
-      colorClass: 'text-purple',
-      route: '/pages/pricing'
-    }
-  ];
+  currentUser = new BaaradaUtils().getAppUser();
 
-  statuses: OnlineStatus[] = [
-    {
-      id: 'online',
-      label: 'Online',
-      icon: icCheckCircle,
-      colorClass: 'text-green'
-    },
-    {
-      id: 'away',
-      label: 'Away',
-      icon: icAccessTime,
-      colorClass: 'text-orange'
-    },
-    {
-      id: 'dnd',
-      label: 'Do not disturb',
-      icon: icDoNotDisturb,
-      colorClass: 'text-red'
-    },
-    {
-      id: 'offline',
-      label: 'Offline',
-      icon: icOfflineBolt,
-      colorClass: 'text-gray'
-    }
-  ];
+  /* items: MenuItem[] = [
+     {
+       id: '1',
+       icon: icAccountCircle,
+       label: 'My Profile',
+       description: 'Personal Information',
+       colorClass: 'text-teal',
+       route: '/apps/social'
+     },
+     {
+       id: '2',
+       icon: icMoveToInbox,
+       label: 'My Inbox',
+       description: 'Messages & Latest News',
+       colorClass: 'text-primary',
+       route: '/apps/chat'
+     },
+     {
+       id: '3',
+       icon: icListAlt,
+       label: 'My Projects',
+       description: 'Tasks & Active Projects',
+       colorClass: 'text-amber',
+       route: '/apps/scrumboard'
+     },
+     {
+       id: '4',
+       icon: icTableChart,
+       label: 'Billing Information',
+       description: 'Pricing & Current Plan',
+       colorClass: 'text-purple',
+       route: '/pages/pricing'
+     }
+   ];
 
-  activeStatus: OnlineStatus = this.statuses[0];
+   statuses: OnlineStatus[] = [
+     {
+       id: 'online',
+       label: 'Online',
+       icon: icCheckCircle,
+       colorClass: 'text-green'
+     },
+     {
+       id: 'away',
+       label: 'Away',
+       icon: icAccessTime,
+       colorClass: 'text-orange'
+     },
+     {
+       id: 'dnd',
+       label: 'Do not disturb',
+       icon: icDoNotDisturb,
+       colorClass: 'text-red'
+     },
+     {
+       id: 'offline',
+       label: 'Offline',
+       icon: icOfflineBolt,
+       colorClass: 'text-gray'
+     }
+   ];
+
+   activeStatus: OnlineStatus = this.statuses[0];*/
 
   trackById = trackById;
   icPerson = icPerson;
@@ -108,15 +112,18 @@ export class ToolbarUserDropdownComponent implements OnInit {
   icVerifiedUser = icVerifiedUser;
   icLock = icLock;
   icNotificationsOff = icNotificationsOff;
+  icPowerOff = icPowerOff;
+
 
   constructor(private cd: ChangeDetectorRef,
-              private popoverRef: PopoverRef<ToolbarUserDropdownComponent>) { }
+              private popoverRef: PopoverRef<ToolbarUserDropdownComponent>) {
+  }
 
   ngOnInit() {
   }
 
   setStatus(status: OnlineStatus) {
-    this.activeStatus = status;
+    // this.activeStatus = status;
     this.cd.markForCheck();
   }
 

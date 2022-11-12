@@ -41,6 +41,7 @@ export class PractitionFormComponent implements OnInit {
   imageFile: any;
   imageFileCouverture: any;
   @ViewChild('couverture') couverture: ElementRef;
+
   constructor(@Inject(MAT_DIALOG_DATA) public _data: any,
               private _dialogRef: MatDialogRef<PractitionFormComponent>,
               private _fb: FormBuilder,
@@ -55,6 +56,7 @@ export class PractitionFormComponent implements OnInit {
     }
 
   }
+
   getCouverture() {
     console.log('ok');
     this.couverture.nativeElement.click();
@@ -86,6 +88,7 @@ export class PractitionFormComponent implements OnInit {
       fullName: ['', [Validators.required]],
       avatar: [''],
       work: [''],
+      phoneNumber: [''],
       presentation: [''],
       background: [''],
     });
@@ -96,6 +99,7 @@ export class PractitionFormComponent implements OnInit {
       id: [this.practition?.id],
       fullName: [this.practition?.fullName, [Validators.required]],
       avatar: [this.practition?.avatar],
+      phoneNumber: [this.practition?.phoneNumber],
       background: [this.practition?.background],
       work: [this.practition?.work?.id],
       presentation: [this.practition?.presentation],
@@ -115,6 +119,7 @@ export class PractitionFormComponent implements OnInit {
     //   }
     // }
   }
+
   loadFilesCouverture(event) {
     this.imageChangedEventCouverture = event;
     // this.fileNames = '';

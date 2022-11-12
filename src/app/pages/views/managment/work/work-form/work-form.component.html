@@ -15,7 +15,7 @@
         <button (click)="changeState()"
                 [ngClass]="workFormGroup?.get('activate')?.value?['text-green', 'bg-green-light']:['text-red', 'bg-red-light']"
                 mat-button type="button">
-          {{workFormGroup?.get('activate')?.value ? 'Actif' : 'Inactif'}}
+          {{workFormGroup?.get('activate')?.value ? 'Activer' : 'Desactiver'}}
         </button>
       </div>
     </div>
@@ -41,7 +41,7 @@
       <input type="file" name="uploadfile" formControlName="icon" (change)="loadFiles($event)" class="inputfile"
              id="upfile"/>
       <label for="upfile"> Selectionner l'icône </label> <br/>
-<!--      <b>{{fileNames}}</b>-->
+      <!--      <b>{{fileNames}}</b>-->
     </div>
 
     <image-cropper
