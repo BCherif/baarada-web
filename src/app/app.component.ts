@@ -12,15 +12,8 @@ import {SplashScreenService} from '../@vex/services/splash-screen.service';
 import {Style, StyleService} from '../@vex/services/style.service';
 import {ConfigName} from '../@vex/interfaces/config-name.model';
 import icLayers from "@iconify/icons-ic/twotone-layers";
-import icSettings from "@iconify/icons-ic/twotone-settings";
-import icFile from "@iconify/icons-fa-solid/file-signature";
-import icKey from "@iconify/icons-fa-solid/key";
-import icDashboard from "@iconify/icons-ic/twotone-dashboard";
 import icWork from "@iconify/icons-ic/twotone-work";
-import icBuilding from "@iconify/icons-fa-solid/building";
-import icUsers from "@iconify/icons-fa-solid/users";
 import icUsersCogs from "@iconify/icons-fa-solid/users-cog";
-import icCash from "@iconify/icons-fa-solid/cash-register";
 
 @Component({
   selector: 'vex-root',
@@ -98,6 +91,18 @@ export class AppComponent {
         route: '/views/managment/practitioners',
         icon: icWork
       },
+      {
+        type: 'subheading',
+        label: 'Gestion Parametrages',
+        children: [
+          {
+            type: 'link',
+            label: 'Utilisateurs',
+            route: '/views/admin/users',
+            icon: icUsersCogs
+          },
+        ]
+      }
     ];
   }
 }
