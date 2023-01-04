@@ -12,8 +12,13 @@ import localeFr from '@angular/common/locales/fr';
 import {HashLocationStrategy, LocationStrategy, registerLocaleData} from "@angular/common";
 import {InterceptorService} from './shared/http/interceptor.service';
 import {MAT_DATE_LOCALE} from '@angular/material/core';
+import {IConfig} from "ngx-mask";
 
 registerLocaleData(localeFr);
+
+export const maskConfig: Partial<IConfig> | (() => Partial<IConfig>) = {
+  validation: false
+};
 
 @NgModule({
   declarations: [AppComponent],

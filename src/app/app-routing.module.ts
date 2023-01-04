@@ -26,6 +26,15 @@ const routes: Routes = [
             path: 'managment',
             loadChildren: () => import('./pages/views/managment/managment.module').then(m => m.ManagmentModule)
           },
+          {
+            path: 'admin',
+            children: [
+              {
+                path: 'users',
+                loadChildren: () => import('./pages/views/admin/user/user.module').then(m => m.UserModule)
+              }
+            ]
+          },
         ],
         canActivate: [AuthGuard]
       },

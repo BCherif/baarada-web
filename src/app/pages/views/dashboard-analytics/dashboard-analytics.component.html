@@ -1,4 +1,4 @@
-<vex-secondary-toolbar current="Dashboard">
+<!--<vex-secondary-toolbar current="Dashboard">
   <vex-breadcrumbs [crumbs]="['Dashboards', 'Analytics']" class="flex-auto"></vex-breadcrumbs>
 
   <button class="ml-2" color="primary" mat-icon-button type="button">
@@ -71,5 +71,43 @@
                                gdColumn="1 / -1"
                                gdColumn.lt-sm="1"
                                total="4,374"></vex-widget-large-goal-chart>
+
+</div>-->
+
+<div class="p-gutter"
+     gdColumns="1fr 1fr 1fr 1fr"
+     gdColumns.lt-md="1fr 1fr"
+     gdColumns.lt-sm="1fr"
+     gdGap="16px"
+     vexContainer>
+
+
+  <widget-quick-value-center [icon]="icPeople"
+                             [label]="'Praticiens'"
+                             [value]="dashBody?.praticienCount"
+                             gdColumn.lt-sm="1"
+                             iconClass="text-primary bg-primary-light"></widget-quick-value-center>
+
+  <widget-quick-value-center [icon]="icWork"
+                             [label]="'Metiers'"
+                             [value]="dashBody?.workCount"
+                             gdColumn.lt-sm="1"
+                             iconClass="text-orange bg-orange-light"></widget-quick-value-center>
+
+
+  <widget-quick-value-center [icon]="icPeople"
+                             [label]="'Utilisateurs'"
+                             [value]="dashBody?.userCount"
+                             gdColumn.lt-sm="1"
+                             iconClass="text-teal bg-teal-light"></widget-quick-value-center>
+</div>
+
+<div class="p-gutter"
+     gdColumns="1fr 1fr 1fr 1fr"
+     gdColumns.lt-md="1fr 1fr"
+     gdColumns.lt-sm="1fr"
+     gdGap="16px"
+     vexContainer>
+
 
 </div>

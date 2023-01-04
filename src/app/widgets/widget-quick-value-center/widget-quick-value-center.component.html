@@ -1,0 +1,12 @@
+<div @fadeInRight
+     class="card p-6 relative hover:shadow-16 trans-shadow"
+     fxLayout="column"
+     fxLayoutAlign="start center">
+    <div [ngClass]="iconClass" class="rounded-full w-12 h-12 flex items-center justify-center">
+        <mat-icon [icIcon]="icon"></mat-icon>
+    </div>
+
+    <h2 class="display-2 font-bold mt-4 mb-2">{{ value | mask: 'separator':' ' }}</h2>
+    <h3 class="subheading-2 font-medium text-secondary m-0">{{ label }}</h3>
+
+</div>

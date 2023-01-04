@@ -1,0 +1,91 @@
+<form #myForm="ngForm" (ngSubmit)="save()" [formGroup]="userFormGroup">
+    <div fxLayout="row" fxLayoutAlign="start center" mat-dialog-title>
+
+        <mat-icon [icIcon]="user?.id?icEdit:icAdd" class="mr-5"></mat-icon>
+
+        <span class="subheading-2 m-0" fxFlex>{{user?.id ? 'Modification User' : 'Nouveau User'}}</span>
+
+        <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutGap="16px" fxLayoutGap.lt-sm="0">
+            <div (click)="$event.stopPropagation()" fxLayoutAlign="start center" fxLayoutGap="4px">
+                <button (click)="changeState()"
+                        [ngClass]="userFormGroup?.get('enabled')?.value?['text-green', 'bg-green-light']:['text-red', 'bg-red-light']"
+                        mat-button type="button">
+                    {{userFormGroup?.get('enabled')?.value ? 'Actif' : 'Inactif'}}
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <mat-divider class="-mx-6 text-border"></mat-divider>
+
+    <mat-dialog-content fxLayout="column">
+
+        <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutGap="16px" fxLayoutGap.lt-sm="0">
+            <mat-form-field appearance="outline" fxFlex="49.5">
+                <mat-label>Nom d'utilisateur</mat-label>
+                <input formControlName="username" matInput>
+                <mat-icon [icIcon]="icPerson" class="mr-3" matPrefix></mat-icon>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" fxFlex="49.5">
+                <mat-label>Mot de passe</mat-label>
+                <input [required]='!user?.id' [type]="inputType" formControlName="password" matInput>
+                <button (click)="toggleVisibility()" mat-icon-button matSuffix matTooltip="Afficher"
+                        type="button">
+                    <mat-icon *ngIf="visible" [icIcon]="icVisibility"></mat-icon>
+                    <mat-icon *ngIf="!visible" [icIcon]="icVisibilityOff"></mat-icon>
+                </button>
+                <mat-icon [icIcon]="icLock" class="mr-3" matPrefix></mat-icon>
+            </mat-form-field>
+        </div>
+
+        <mat-form-field appearance="outline" fxFlex>
+            <mat-label>Adresse</mat-label>
+            <input formControlName="address" matInput>
+            <mat-icon [icIcon]="icMapMarker" class="mr-3" matPrefix></mat-icon>
+        </mat-form-field>
+
+        <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutGap="16px" fxLayoutGap.lt-sm="0">
+
+            <mat-accordion fxFlex>
+                <mat-expansion-panel [expanded]="true">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            <div (click)="$event.stopPropagation()" fxLayout="row" fxLayoutAlign="start center">
+                                <mat-checkbox (change)="selectAllRoles($event)" (click)="$event.stopPropagation()"
+                                              class="checkbox-grid" color="primary"
+                                              matTooltip="Tout selectionner"
+                                              matTooltipPosition="above">
+                                    Choisir les roles ou profiles de l'utilisateur
+                                </mat-checkbox>
+                            </div>
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <mat-divider></mat-divider>
+                    <br/>
+                    <div *ngFor="let role of userFormGroup?.controls['roles']['controls']; let i = index"
+                         class="checkbox-grid" formArrayName="roles">
+                        <mat-checkbox (change)="checkRoleItem(i)" [(ngModel)]="roles[i].checked" [formControlName]="i"
+                                      color="primary">
+                            {{roles[i].description.toUpperCase()}}
+                        </mat-checkbox>
+                    </div>
+                </mat-expansion-panel>
+            </mat-accordion>
+
+        </div>
+
+    </mat-dialog-content>
+
+    <mat-dialog-actions align="end">
+        <button [disabled]="userFormGroup?.invalid" [ngClass]="['text-green', 'bg-green-light']" mat-button
+                type="submit">
+            <mat-icon [icIcon]="icCheck" class="mr-5"></mat-icon>
+            {{user?.id ? 'MODIFIER' : 'CREER'}}
+        </button>
+        <button [ngClass]="['text-red', 'bg-red-light']" mat-button mat-dialog-close type="button">
+            <mat-icon [icIcon]="icClose" class="mr-5"></mat-icon>
+            ANNULER
+        </button>
+    </mat-dialog-actions>
+</form>
