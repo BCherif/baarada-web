@@ -52,19 +52,22 @@ export class PractitionFormComponent implements OnInit {
 
     if (this._data) {
       this.practition = this._data.practition;
-      this.updateForm();
+      if (this.practition) {
+        this.getWorkById(this.practition?.work?.id);
+        this.updateForm(this.practition);
+      }
+    } else {
+      this.createForm();
     }
 
   }
 
-  getCouverture() {
-    console.log('ok');
-    this.couverture.nativeElement.click();
-  }
-
   ngOnInit() {
     this.getWorks();
-    this.createForm();
+  }
+
+  getCouverture() {
+    this.couverture.nativeElement.click();
   }
 
   imageCropped(event: ImageCroppedEvent) {
@@ -94,16 +97,16 @@ export class PractitionFormComponent implements OnInit {
     });
   }
 
-  updateForm(): void {
+  updateForm(practition: Practition): void {
     this.practitionFormGroup = this._fb.group({
-      id: [this.practition?.id],
-      fullName: [this.practition?.fullName, [Validators.required]],
-      avatar: [this.practition?.avatar],
-      phoneNumber: [this.practition?.phoneNumber],
-      background: [this.practition?.background],
-      work: [this.practition?.work?.id],
-      presentation: [this.practition?.presentation],
-      activate: [this.practition?.activate]
+      id: [practition?.id],
+      fullName: [practition?.fullName, [Validators.required]],
+      avatar: [practition?.avatar],
+      phoneNumber: [practition?.phoneNumber],
+      background: [practition?.background],
+      work: [practition?.work?.id],
+      presentation: [practition?.presentation],
+      activate: [practition?.activate]
     });
   }
 
@@ -153,16 +156,29 @@ export class PractitionFormComponent implements OnInit {
     this.practition = this.practitionFormGroup.value;
     this.practition.work = this.work;
     this.file.append('practitioner', JSON.stringify(this.practition));
-    this._practitionerService.create(this.file).subscribe((ret) => {
-      if (ret.ok) {
-        this._dialogRef.close(ret.data);
-        this._toast.success(ret.message);
-      } else {
-        this._toast.error(ret.message);
-      }
-    }, error => {
-      this._toast.error('Une erreur est survenue');
-    })
+    if (!this.practition.id) {
+      this._practitionerService.create(this.file).subscribe((ret) => {
+        if (ret.ok) {
+          this._dialogRef.close(ret.data);
+          this._toast.success(ret.message);
+        } else {
+          this._toast.error(ret.message);
+        }
+      }, error => {
+        this._toast.error('Une erreur est survenue');
+      })
+    } else {
+      this._practitionerService.update(this.file).subscribe((ret) => {
+        if (ret.ok) {
+          this._dialogRef.close(ret.data);
+          this._toast.success(ret.message);
+        } else {
+          this._toast.error(ret.message);
+        }
+      }, error => {
+        this._toast.error('Une erreur est survenue');
+      })
+    }
   }
 
   changeState() {

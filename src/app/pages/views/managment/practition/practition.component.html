@@ -83,7 +83,8 @@
         </ng-container>
 
         <tr *matHeaderRowDef="visibleColumns" mat-header-row></tr>
-        <tr *matRowDef="let row; columns: visibleColumns; let rowIndex = index;"
+        <tr (click)="showFormDialog(row, rowIndex)"
+            *matRowDef="let row; columns: visibleColumns; let rowIndex = index;"
             @fadeInUp
             class="hover:bg-hover trans-ease-out cursor-pointer"
             mat-row></tr>
@@ -112,7 +113,7 @@
 
 <mat-menu #actionsMenu="matMenu" xPosition="before" yPosition="below">
   <ng-template let-practition="practition" let-rowIndex="rowIndex" matMenuContent>
-    <button mat-menu-item>
+    <button (click)="showFormDialog(practition, rowIndex)" mat-menu-item>
       <mat-icon [icIcon]="icEdit"></mat-icon>
       <span>Modifier</span>
     </button>
