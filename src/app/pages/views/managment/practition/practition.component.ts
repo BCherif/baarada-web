@@ -105,6 +105,7 @@ export class PractitionComponent implements OnInit {
   }
 
   showFormDialog(practition?: Practition, rowIndex?: number) {
+    console.log('praticien', practition);
     let matDialogRef: MatDialogRef<PractitionFormComponent> = this._matDialog.open(PractitionFormComponent, {
       disableClose: true,
       data: {
