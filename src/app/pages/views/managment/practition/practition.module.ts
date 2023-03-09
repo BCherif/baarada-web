@@ -20,32 +20,34 @@ import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import {PractitionComponent} from "./practition.component";
 import {PractitionRoutingModule} from "./practition-routing.module";
 import {PractitionFormModule} from "./practition-form/practition-form.module";
+import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 
 
 @NgModule({
   declarations: [PractitionComponent],
-  imports: [
-    CommonModule,
-    PractitionRoutingModule,
-    PageLayoutModule,
-    FlexLayoutModule,
-    BreadcrumbsModule,
-    PractitionFormModule,
-    MatPaginatorModule,
-    MatTableModule,
-    MatSortModule,
-    MatCheckboxModule,
-    MatIconModule,
-    MatButtonModule,
-    MatMenuModule,
-    IconModule,
-    FormsModule,
-    ReactiveFormsModule,
-    MatButtonToggleModule,
-    MatTooltipModule,
-    ContainerModule,
-    MatSelectModule
-  ],
+    imports: [
+        CommonModule,
+        PractitionRoutingModule,
+        PageLayoutModule,
+        FlexLayoutModule,
+        BreadcrumbsModule,
+        PractitionFormModule,
+        MatPaginatorModule,
+        MatTableModule,
+        MatSortModule,
+        MatCheckboxModule,
+        MatIconModule,
+        MatButtonModule,
+        MatMenuModule,
+        IconModule,
+        FormsModule,
+        ReactiveFormsModule,
+        MatButtonToggleModule,
+        MatTooltipModule,
+        ContainerModule,
+        MatSelectModule,
+        MatProgressSpinnerModule
+    ],
   providers: []
 })
 export class PractitionModule {

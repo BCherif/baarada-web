@@ -12,23 +12,25 @@ import {IconModule} from '@visurel/iconify-angular';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatButtonModule} from '@angular/material/button';
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 
 
 @NgModule({
   declarations: [LoginComponent],
-  imports: [
-    CommonModule,
-    LoginRoutingModule,
-    FlexLayoutModule,
-    ReactiveFormsModule,
-    MatInputModule,
-    MatIconModule,
-    MatSnackBarModule,
-    IconModule,
-    MatTooltipModule,
-    MatButtonModule,
-    MatCheckboxModule
-  ],
+    imports: [
+        CommonModule,
+        LoginRoutingModule,
+        FlexLayoutModule,
+        ReactiveFormsModule,
+        MatInputModule,
+        MatIconModule,
+        MatSnackBarModule,
+        IconModule,
+        MatTooltipModule,
+        MatButtonModule,
+        MatCheckboxModule,
+        MatProgressSpinnerModule
+    ],
   providers: []
 })
 export class LoginModule {

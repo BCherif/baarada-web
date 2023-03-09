@@ -42,9 +42,10 @@
             <a [routerLink]="['/forgot-password']" class="caption">Forgot Password?</a>
         </div>-->
 
-        <button [disabled]="!loginForm.valid" color="primary" mat-raised-button (click)="onLogin()">
+        <button [disabled]="!loginForm.valid || loging == true" color="primary" mat-raised-button (click)="onLogin()">
           SE CONNECTER
         </button>
+        <mat-spinner *ngIf="loging === true" [diameter]="20"></mat-spinner>
 
         <p class="text-secondary text-center"><br/>
           {{copyright}} <a href="/" style="color: #4A9DD3;"> - BAARADA</a>

@@ -63,6 +63,7 @@
                 fxFlex="none">
                 {{ row.activate ? 'Activer' : 'Desactiver'}}
               </div>
+              <mat-spinner *ngIf="activating == true && row?.id == currentPractition" [diameter]="20"></mat-spinner>
             </div>
           </td>
         </ng-container>
@@ -117,9 +118,9 @@
       <mat-icon [icIcon]="icEdit"></mat-icon>
       <span>Modifier</span>
     </button>
-    <button mat-menu-item>
+    <button mat-menu-item (click)="activatePractioner(rowIndex)">
       <mat-icon [icIcon]="practition?.activate?icClose:icCheck"></mat-icon>
-      <span>{{practition?.activate ? 'Desactiver' : 'Activer'}}</span>
+      <span>{{practition?.activate ? 'Desactivé' : 'Activé'}}</span>
     </button>
   </ng-template>
 </mat-menu>

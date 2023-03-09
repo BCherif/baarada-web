@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'http://localhost:8080/baarada',
+  apiUrl: 'https://xn--footballcarriresucces-04b.com:8443/baarada',
+  // apiUrl: 'http://localhost:8080/baarada',
 };
 
 /*

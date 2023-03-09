@@ -17,15 +17,7 @@ export class PractitionerService {
   findByPage(page?, size?): Observable<any> {
     page = page || 0;
     size = size || 10;
-    return this._httpClient.get<any>(this.serviceURL + '/page?page=' + page + '&size=' + size, {});
-  }
-
-  findAll(): Observable<IResponse> {
-    return this._httpClient.get<IResponse>(this.serviceURL);
-  }
-
-  getById(id: number): Observable<IResponse> {
-    return this._httpClient.get<IResponse>(this.serviceURL + '/' + id);
+    return this._httpClient.get<any>(this.serviceURL + '/page/all?page=' + page + '&size=' + size, {});
   }
 
   create(obj: FormData): Observable<IResponse> {
@@ -34,6 +26,10 @@ export class PractitionerService {
 
   update(obj: FormData): Observable<IResponse> {
     return this._httpClient.put<IResponse>(this.serviceURL + "/update", obj);
+  }
+
+  activatePractioner(practitioner_id: number): Observable<IResponse> {
+  return this._httpClient.get<IResponse>(`${this.serviceURL}/${practitioner_id}/enable`)
   }
 
   getImage(url: string) {

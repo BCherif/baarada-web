@@ -70,6 +70,8 @@ export class PractitionComponent implements OnInit {
   totalElements: number;
 
   practitions: Practition[];
+  activating: boolean = false;
+  currentPractition: Practition = new Practition();
 
   constructor(private _matDialog: MatDialog,
               private _practitionerService: PractitionerService,
@@ -84,6 +86,24 @@ export class PractitionComponent implements OnInit {
     this.findAllByPage(this.page, this.size);
   }
 
+  activatePractioner(index) {
+    this.currentPractition = this.practitions[index];
+    this.activating = true;
+    this._practitionerService.activatePractioner(this.currentPractition.id).subscribe((res) => {
+      if (res.ok) {
+        this.activating = false;
+        this._toast.success(res.message);
+        this.currentPractition = new Practition();
+        this.findAllByPage(this.page, this.size);
+      } else {
+        this.activating = false;
+        this._toast.error(res.message);
+      }
+    }, error => {
+      this.activating = false;
+      this._toast.error("Erreur de modification, veuillez réessayer plus tard.");
+    });
+  }
   findAllByPage(page: number, size: number) {
     this._practitionerService.findByPage(page, size).subscribe((value) => {
       if (value.ok) {

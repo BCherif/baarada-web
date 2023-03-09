@@ -30,13 +30,14 @@ export class LoginComponent implements OnInit {
 
   loginForm: FormGroup;
   authBody = new AuthBody();
+  loging: boolean = false;
 
   constructor(private _router: Router,
               private _fb: FormBuilder,
               private _cd: ChangeDetectorRef,
               private _snackbar: MatSnackBar,
               private _authService: AuthService,
-              private _toast: ToastrService
+              private _toast: ToastrService,
   ) {
   }
 
@@ -53,19 +54,12 @@ export class LoginComponent implements OnInit {
   }
 
   onLogin(): void {
-
-    // this.loading = true;
+    this.loging = true;
     this.authBody.username = this.loginForm.value.username;
     this.authBody.password = this.loginForm.value.password;
-
-    console.log('authBody', this.authBody);
-
     this._authService.login(this.authBody).subscribe((ret) => {
-      // console.log(ret);
-      console.log('ret', ret);
-      // this.loading = false;
-
       if (ret && ret['ok'] === true) {
+        this.loging = false;
         // save local storage values
         localStorage.setItem('app-token', btoa(JSON.stringify(ret['data'])));
         localStorage.setItem('isLoggedin', 'true');
@@ -75,15 +69,15 @@ export class LoginComponent implements OnInit {
         this._toast.success(ret['message']);
 
       } else {
+        this.loging = false;
         this._toast.error(ret['message']);
       }
 
     }, error => {
-      // this.loading = false;
+      this.loging = false;
       this._toast.error('Echec de connexion au serveur');
       return;
     });
-
   }
 
   send() {
